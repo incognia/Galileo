@@ -6,9 +6,9 @@ import os
 import platform
 import psutil
 
-# Personaliza el título de la página
+# Personaliza el título de la página y el diseño de la página
 st.set_page_config(
-    page_title="Galileo | System Dasboard",
+    page_title="Galileo | System Dashboard",
     page_icon="📊",  # Ícono opcional para la pestaña del navegador
     layout="wide"   # Diseño de la página (wide o centered)
 )
@@ -52,15 +52,29 @@ st.code(informacion_sistema, language="text")
 # Checkbox para mostrar/ocultar la sección de contenedores Docker
 mostrar_docker = st.sidebar.checkbox("Contenedores Docker")
 
+# Agregar separador al sidebar
+st.sidebar.markdown("---")  # Separador visual
+
 # Checkbox para mostrar/ocultar la sección de Uso de CPU
 mostrar_cpu = st.sidebar.checkbox("Uso de CPU")
 
-mostrar_proc_cpu = st.sidebar.checkbox("Procesos x CPU (%)")
-
-# Checkbox para mostrar/ocultar la sección de Uso de memoria
+# Checkbox para mostrar/ocultar la sección de Uso de RAM
 mostrar_ram = st.sidebar.checkbox("Uso de RAM")
 
+# Checkbox para mostrar/ocultar la sección de Uso de HDD
+mostrar_hdd = st.sidebar.checkbox("Uso de HDD")
+
+# Agregar separador al sidebar
+st.sidebar.markdown("---")  # Separador visual
+
+# Checkbox para mostrar/ocultar la sección de procesos por uso de CPU
+mostrar_proc_cpu = st.sidebar.checkbox("Procesos x CPU (%)")
+
+# Checkbox para mostrar/ocultar la sección de procesos por uso de RAM
 mostrar_proc_ram = st.sidebar.checkbox("Procesos x RAM (MB)")
+
+# Checkbox para mostrar/ocultar la sección de procesos por uso de HDD
+mostrar_proc_hdd = st.sidebar.checkbox("Procesos x HDD (MB)")
 
 # --------[ Sección de contenedores Docker ]------------------------------------
 
@@ -98,7 +112,6 @@ if mostrar_cpu:
     st.pyplot(fig)
 
 if mostrar_proc_cpu:
-
     # Título de la sección
     st.title("Procesos por uso de CPU (%)")
 
@@ -116,10 +129,10 @@ if mostrar_proc_cpu:
     # Mostrar los datos en una tabla
     st.table(data)
 
-# --------[ Uso de memoria ]----------------------------------------------------
+# --------[ Uso de RAM ]--------------------------------------------------------
 
 if mostrar_ram:
-    # Obtener el uso actual de la memoria
+    # Obtener el uso actual de la RAM
     memoria = psutil.virtual_memory()
 
     # Convertir bytes a GB
@@ -127,8 +140,8 @@ if mostrar_ram:
     memoria_usada_gb = memoria.used / (1024 ** 3)
     memoria_disponible_gb = memoria.available / (1024 ** 3)
 
-    # Título y encabezado para la sección de Uso de memoria
-    st.title("Uso de memoria")
+    # Título y encabezado para la sección de Uso de RAM
+    st.title("Uso de RAM")
     st.write(f"Memoria total: {memoria_total_gb:.2f} GB")
     st.write(f"Memoria usada: {memoria_usada_gb:.2f} GB")
     st.write(f"Memoria disponible: {memoria_disponible_gb:.2f} GB")
@@ -146,7 +159,6 @@ if mostrar_ram:
     st.pyplot(fig)
 
 if mostrar_proc_ram:
-
     # Título de la sección
     st.title("Procesos por uso de RAM (MB)")
 
@@ -160,6 +172,42 @@ if mostrar_proc_ram:
         nombre = proceso.info['name']
         memoria_mb = proceso.info['memory_info'].rss / (1024 * 1024)  # Convertir bytes a MB
         data.append({"PID": pid, "Nombre": nombre, "Uso de RAM (MB)": memoria_mb})
+
+    # Mostrar los datos en una tabla
+    st.table(data)
+
+# --------[ Uso de HDD ]--------------------------------------------------------
+
+if mostrar_hdd:
+    # Obtener el uso actual del HDD
+    uso_hdd = psutil.disk_usage('/')
+
+    hdd_total_gb = uso_hdd.total / (1024** 3)
+    hdd_usado_gb = uso_hdd.used / (1024 ** 3)
+    hdd_disponible_gb = uso_hdd.free / (1024 ** 3)
+    hdd_porcentaje = uso_hdd.percent
+
+    st.title("Uso de HDD")
+    st.write(f"HDD total: {hdd_total_gb:.2f} GB")
+    st.write(f"HDD usado: {hdd_usado_gb:.2f} GB")
+    st.write(f"HDD disponible: {hdd_disponible_gb:.2f} GB")
+    st.write(f"HDD porcentaje de uso: {hdd_porcentaje:.2f} %")
+
+if mostrar_proc_hdd:
+    # Título de la sección
+    st.title("Procesos por uso de HDD (MB)")
+
+    # Obtener la lista de procesos y ordenarla por uso de disco duro (almacenamiento)
+    procesos = sorted(psutil.process_iter(attrs=['pid', 'name', 'memory_info', 'io_counters']), key=lambda x: getattr(x.info.get('io_counters', None), 'write_bytes', 0), reverse=True)
+
+    # Crear una lista de diccionarios con información de procesos
+    data = []
+    for proceso in procesos[:16]:
+        pid = proceso.info['pid']
+        nombre = proceso.info['name']
+        io_info = proceso.info.get('io_counters', None)
+        disco_mb = getattr(io_info, 'write_bytes', 0) / (1024 * 1024) if io_info else 0  # Convertir bytes a MB si la info de I/O está presente
+        data.append({"PID": pid, "Nombre": nombre, "Uso de Disco Duro (MB)": disco_mb})
 
     # Mostrar los datos en una tabla
     st.table(data)

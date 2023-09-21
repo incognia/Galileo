@@ -27,3 +27,93 @@ Traceback (most recent call last):
     procesos = sorted(psutil.process_iter(attrs=['pid', 'name', 'cpu_percent']), key=lambda x: x.info['cpu_percent'], reverse=True)
                                                                                                ~~~~~~^^^^^^^^^^^^^^^
 KeyError: 'cpu_percent'
+2023-09-21 16:21:41.148 Uncaught app exception
+Traceback (most recent call last):
+  File "/opt/streamlit/lib/python3.11/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 552, in _run_script
+    exec(code, module.__dict__)
+  File "/home/incognia/Docker/Galileo/dashboard.py", line 170, in <module>
+    if mostrar_hdd:
+       ^^^^^^^^^^^
+NameError: name 'mostrar_hdd' is not defined
+2023-09-21 16:26:34.757 Uncaught app exception
+Traceback (most recent call last):
+  File "/opt/streamlit/lib/python3.11/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 552, in _run_script
+    exec(code, module.__dict__)
+  File "/home/incognia/Docker/Galileo/dashboard.py", line 179, in <module>
+    procesos = sorted(psutil.process_iter(attrs=['pid', 'name', 'memory_info', 'io_counters']),
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/incognia/Docker/Galileo/dashboard.py", line 180, in <lambda>
+    key=lambda x: x.info['io_counters'].write_bytes, reverse=True)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'write_bytes'
+2023-09-21 16:27:03.304 Uncaught app exception
+Traceback (most recent call last):
+  File "/opt/streamlit/lib/python3.11/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 552, in _run_script
+    exec(code, module.__dict__)
+  File "/home/incognia/Docker/Galileo/dashboard.py", line 179, in <module>
+    procesos = sorted(psutil.process_iter(attrs=['pid', 'name', 'memory_info', 'io_counters']),
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/incognia/Docker/Galileo/dashboard.py", line 180, in <lambda>
+    key=lambda x: x.info['io_counters'].write_bytes, reverse=True)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'write_bytes'
+2023-09-21 16:27:08.943 Uncaught app exception
+Traceback (most recent call last):
+  File "/opt/streamlit/lib/python3.11/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 552, in _run_script
+    exec(code, module.__dict__)
+  File "/home/incognia/Docker/Galileo/dashboard.py", line 179, in <module>
+    procesos = sorted(psutil.process_iter(attrs=['pid', 'name', 'memory_info', 'io_counters']),
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/incognia/Docker/Galileo/dashboard.py", line 180, in <lambda>
+    key=lambda x: x.info['io_counters'].write_bytes, reverse=True)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'write_bytes'
+2023-09-21 16:27:26.000 Uncaught app exception
+Traceback (most recent call last):
+  File "/opt/streamlit/lib/python3.11/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 552, in _run_script
+    exec(code, module.__dict__)
+  File "/home/incognia/Docker/Galileo/dashboard.py", line 179, in <module>
+    procesos = sorted(psutil.process_iter(attrs=['pid', 'name', 'memory_info', 'io_counters']),
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '<' not supported between instances of 'NoneType' and 'NoneType'
+2023-09-21 16:27:43.171 Uncaught app exception
+Traceback (most recent call last):
+  File "/opt/streamlit/lib/python3.11/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 552, in _run_script
+    exec(code, module.__dict__)
+  File "/home/incognia/Docker/Galileo/dashboard.py", line 179, in <module>
+    procesos = sorted(psutil.process_iter(attrs=['pid', 'name', 'memory_info', 'io_counters']),
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/incognia/Docker/Galileo/dashboard.py", line 180, in <lambda>
+    key=lambda x: x.info['io_counters'].write_bytes, reverse=True)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'write_bytes'
+2023-09-21 16:28:14.853 Uncaught app exception
+Traceback (most recent call last):
+  File "/opt/streamlit/lib/python3.11/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 552, in _run_script
+    exec(code, module.__dict__)
+  File "/home/incognia/Docker/Galileo/dashboard.py", line 179, in <module>
+    procesos = sorted(psutil.process_iter(attrs=['pid', 'name', 'memory_info', 'io_counters']), key=lambda x: x.info.get('io_counters', None).write_bytes or 0, reverse=True)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/incognia/Docker/Galileo/dashboard.py", line 179, in <lambda>
+    procesos = sorted(psutil.process_iter(attrs=['pid', 'name', 'memory_info', 'io_counters']), key=lambda x: x.info.get('io_counters', None).write_bytes or 0, reverse=True)
+                                                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'write_bytes'
+2023-09-21 16:28:19.285 Uncaught app exception
+Traceback (most recent call last):
+  File "/opt/streamlit/lib/python3.11/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 552, in _run_script
+    exec(code, module.__dict__)
+  File "/home/incognia/Docker/Galileo/dashboard.py", line 179, in <module>
+    procesos = sorted(psutil.process_iter(attrs=['pid', 'name', 'memory_info', 'io_counters']), key=lambda x: x.info.get('io_counters', None).write_bytes or 0, reverse=True)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/incognia/Docker/Galileo/dashboard.py", line 179, in <lambda>
+    procesos = sorted(psutil.process_iter(attrs=['pid', 'name', 'memory_info', 'io_counters']), key=lambda x: x.info.get('io_counters', None).write_bytes or 0, reverse=True)
+                                                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'write_bytes'
+2023-09-21 16:43:24.663 Uncaught app exception
+Traceback (most recent call last):
+  File "/opt/streamlit/lib/python3.11/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 552, in _run_script
+    exec(code, module.__dict__)
+  File "/home/incognia/Docker/Galileo/dashboard.py", line 173, in <module>
+    hdd_disponible_gb = uso_hdd.available / (1024 ** 3)
+                        ^^^^^^^^^^^^^^^^^
+AttributeError: 'sdiskusage' object has no attribute 'available'
