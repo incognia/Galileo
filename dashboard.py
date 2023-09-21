@@ -1,4 +1,5 @@
 import streamlit as st
+import subprocess
 from theme import set_custom_theme
 import matplotlib.pyplot as plt
 import os
@@ -46,6 +47,22 @@ mostrar_cpu = st.sidebar.checkbox("Mostrar Uso de CPU")
 
 # Checkbox para mostrar/ocultar la sección de Uso de memoria
 mostrar_memoria = st.sidebar.checkbox("Mostrar Uso de memoria")
+
+# --------[ Sección de Docker PS ]--------------------------------------------
+
+# Checkbox para mostrar/ocultar la sección de Docker PS
+mostrar_docker_ps = st.sidebar.checkbox("Mostrar Docker PS")
+
+if mostrar_docker_ps:
+    st.title("Docker PS")
+    try:
+        # Ejecutar el comando "docker ps" y capturar su salida
+        resultado = subprocess.check_output(["docker", "ps"], universal_newlines=True, stderr=subprocess.STDOUT)
+        
+        # Mostrar la salida del comando en un bloque de código
+        st.code(resultado, language="text")
+    except subprocess.CalledProcessError as e:
+        st.error(f"Error al ejecutar 'docker ps': {e.output}")
 
 # --------[ Uso de CPU ]--------------------------------------------------------
 
