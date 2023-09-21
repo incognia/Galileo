@@ -6,6 +6,13 @@ import os
 import platform
 import psutil
 
+# Personaliza el título de la página
+st.set_page_config(
+    page_title="Galileo | System Dasboard",
+    page_icon="✅",  # Ícono opcional para la pestaña del navegador
+    layout="wide"   # Diseño de la página (wide o centered)
+)
+
 # Configurar el tema personalizado (si es necesario)
 set_custom_theme()
 

@@ -1,0 +1,10 @@
+nohup: no se tendrá en cuenta la entrada
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to False.
+
+
+  You can now view your Streamlit app in your browser.
+
+  Network URL: http://201.116.40.139:8501
+  External URL: http://201.116.40.139:8501
+
