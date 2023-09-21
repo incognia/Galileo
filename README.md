@@ -33,5 +33,4 @@ This project is licensed under the GNU General Public License - see the [LICENSE
 1. Clone this repository to your local machine.
    
    ```bash
-   git clone https://github.com/yourusername/your-repo.git
-
+   git clone https://github.com/incognia/Galileo
