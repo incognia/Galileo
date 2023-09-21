@@ -100,7 +100,7 @@ if mostrar_cpu:
 if mostrar_proc_cpu:
 
     # Título de la sección
-    st.title("Procesos por Uso de CPU (%)")
+    st.title("Procesos por uso de CPU (%)")
 
     # Obtener la lista de procesos y ordenarla por uso de CPU en orden descendente
     procesos = sorted(psutil.process_iter(attrs=['pid', 'name', 'cpu_percent']), key=lambda x: x.info['cpu_percent'], reverse=True)
@@ -148,7 +148,7 @@ if mostrar_ram:
 if mostrar_proc_ram:
 
     # Título de la sección
-    st.title("Procesos por Uso de RAM (MB)")
+    st.title("Procesos por uso de RAM (MB)")
 
     # Obtener la lista de procesos y ordenarla por uso de memoria
     procesos = sorted(psutil.process_iter(attrs=['pid', 'name', 'memory_info']), key=lambda x: x.info['memory_info'].rss, reverse=True)
