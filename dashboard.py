@@ -9,7 +9,7 @@ import psutil
 # Personaliza el título de la página
 st.set_page_config(
     page_title="Galileo | System Dasboard",
-    page_icon="✅",  # Ícono opcional para la pestaña del navegador
+    page_icon="📊",  # Ícono opcional para la pestaña del navegador
     layout="wide"   # Diseño de la página (wide o centered)
 )
 
@@ -49,19 +49,23 @@ st.code(informacion_sistema, language="text")
 
 # --------[ Checkbox para mostrar/ocultar secciones ]---------------------------
 
+# Checkbox para mostrar/ocultar la sección de contenedores Docker
+mostrar_docker = st.sidebar.checkbox("Contenedores Docker")
+
 # Checkbox para mostrar/ocultar la sección de Uso de CPU
-mostrar_cpu = st.sidebar.checkbox("Mostrar Uso de CPU")
+mostrar_cpu = st.sidebar.checkbox("Uso de CPU")
+
+mostrar_proc_cpu = st.sidebar.checkbox("Procesos x CPU (%)")
 
 # Checkbox para mostrar/ocultar la sección de Uso de memoria
-mostrar_memoria = st.sidebar.checkbox("Mostrar Uso de memoria")
+mostrar_ram = st.sidebar.checkbox("Uso de RAM")
 
-# --------[ Sección de Docker PS ]--------------------------------------------
+mostrar_proc_ram = st.sidebar.checkbox("Procesos x RAM (MB)")
 
-# Checkbox para mostrar/ocultar la sección de Docker PS
-mostrar_docker_ps = st.sidebar.checkbox("Mostrar Docker PS")
+# --------[ Sección de contenedores Docker ]------------------------------------
 
-if mostrar_docker_ps:
-    st.title("Docker PS")
+if mostrar_docker:
+    st.title("Contenedores Docker")
     try:
         # Ejecutar el comando "docker ps" y capturar su salida
         resultado = subprocess.check_output(["docker", "ps"], universal_newlines=True, stderr=subprocess.STDOUT)
@@ -93,9 +97,28 @@ if mostrar_cpu:
     # Mostrar la gráfica en Streamlit
     st.pyplot(fig)
 
+if mostrar_proc_cpu:
+
+    # Título de la sección
+    st.title("Procesos por Uso de CPU (%)")
+
+    # Obtener la lista de procesos y ordenarla por uso de CPU en orden descendente
+    procesos = sorted(psutil.process_iter(attrs=['pid', 'name', 'cpu_percent']), key=lambda x: x.info['cpu_percent'], reverse=True)
+
+    # Crear una lista de diccionarios con información de procesos
+    data = []
+    for proceso in procesos[:16]:
+        pid = proceso.info['pid']
+        nombre = proceso.info['name']
+        uso_cpu = proceso.info['cpu_percent']
+        data.append({"PID": pid, "Nombre": nombre, "Uso de CPU (%)": uso_cpu})
+
+    # Mostrar los datos en una tabla
+    st.table(data)
+
 # --------[ Uso de memoria ]----------------------------------------------------
 
-if mostrar_memoria:
+if mostrar_ram:
     # Obtener el uso actual de la memoria
     memoria = psutil.virtual_memory()
 
@@ -121,3 +144,22 @@ if mostrar_memoria:
 
     # Mostrar la gráfica en Streamlit
     st.pyplot(fig)
+
+if mostrar_proc_ram:
+
+    # Título de la sección
+    st.title("Procesos por Uso de RAM (MB)")
+
+    # Obtener la lista de procesos y ordenarla por uso de memoria
+    procesos = sorted(psutil.process_iter(attrs=['pid', 'name', 'memory_info']), key=lambda x: x.info['memory_info'].rss, reverse=True)
+
+    # Crear una lista de diccionarios con información de procesos
+    data = []
+    for proceso in procesos[:16]:
+        pid = proceso.info['pid']
+        nombre = proceso.info['name']
+        memoria_mb = proceso.info['memory_info'].rss / (1024 * 1024)  # Convertir bytes a MB
+        data.append({"PID": pid, "Nombre": nombre, "Uso de RAM (MB)": memoria_mb})
+
+    # Mostrar los datos en una tabla
+    st.table(data)

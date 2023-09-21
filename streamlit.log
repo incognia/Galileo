@@ -8,3 +8,22 @@ Collecting usage statistics. To deactivate, set browser.gatherUsageStats to Fals
   Network URL: http://201.116.40.139:8501
   External URL: http://201.116.40.139:8501
 
+2023-09-21 15:01:57.440 Uncaught app exception
+Traceback (most recent call last):
+  File "/opt/streamlit/lib/python3.11/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 552, in _run_script
+    exec(code, module.__dict__)
+  File "/home/incognia/Docker/Galileo/dashboard.py", line 102, in <module>
+    if mostrar_memoria:
+       ^^^^^^^^^^^^^^^
+NameError: name 'mostrar_memoria' is not defined
+2023-09-21 15:10:02.702 Uncaught app exception
+Traceback (most recent call last):
+  File "/opt/streamlit/lib/python3.11/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 552, in _run_script
+    exec(code, module.__dict__)
+  File "/home/incognia/Docker/Galileo/dashboard.py", line 106, in <module>
+    procesos = sorted(psutil.process_iter(attrs=['pid', 'name', 'cpu_percent']), key=lambda x: x.info['cpu_percent'], reverse=True)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/incognia/Docker/Galileo/dashboard.py", line 106, in <lambda>
+    procesos = sorted(psutil.process_iter(attrs=['pid', 'name', 'cpu_percent']), key=lambda x: x.info['cpu_percent'], reverse=True)
+                                                                                               ~~~~~~^^^^^^^^^^^^^^^
+KeyError: 'cpu_percent'
